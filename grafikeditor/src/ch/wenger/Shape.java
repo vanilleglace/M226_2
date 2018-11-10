@@ -1,16 +1,32 @@
 package ch.wenger;
 
-public class Shape {
-    protected int startX;
-    protected int startY;
-    protected int endX;
-    protected int endY;
+import java.awt.*;
 
-    public Shape(int startX, int startY, int endX, int endY) {
+public class Shape {
+    private int startX;
+    private int startY;
+    private int width;
+    private int height;
+    private Color fillColor;
+    private Color strokeColor;
+    private int strokeWidth;
+
+    public Shape(int startX, int startY, Color fillColor, Color strokeColor, int strokeWidth) {
         this.startX = startX;
         this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
+        this.fillColor = fillColor;
+        this.strokeColor = strokeColor;
+        this.strokeWidth = strokeWidth;
+    }
+
+    public Shape(int startX, int startY, int width, int height, Color fillColor, Color strokeColor, int strokeWidth) {
+        this.startX = startX;
+        this.startY = startY;
+        this.width = width;
+        this.height = height;
+        this.fillColor = fillColor;
+        this.strokeColor = strokeColor;
+        this.strokeWidth = strokeWidth;
     }
 
     public int getStartX() {
@@ -29,19 +45,43 @@ public class Shape {
         this.startY = startY;
     }
 
-    public int getEndX() {
-        return endX;
+    public int getWidth() {
+        return width;
     }
 
-    public void setEndX(int endX) {
-        this.endX = endX;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
-    public int getEndY() {
-        return endY;
+    public int getHeight() {
+        return height;
     }
 
-    public void setEndY(int endY) {
-        this.endY = endY;
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public Color getFillColor() {
+        return fillColor;
+    }
+
+    public void setFillColor(Color fillColor) {
+        this.fillColor = fillColor;
+    }
+
+    public Color getStrokeColor() {
+        return strokeColor;
+    }
+
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
+    }
+
+    public int getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = strokeWidth;
     }
 }

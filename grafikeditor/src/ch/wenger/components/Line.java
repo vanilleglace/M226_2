@@ -2,9 +2,21 @@ package ch.wenger.components;
 
 import ch.wenger.Shape;
 
-public class Line extends Shape {
+import java.awt.*;
 
-    public Line(int startX, int startY, int endX, int endY) {
-        super(startX, startY, endX, endY);
+public class Line extends Shape {
+    int length;
+
+    public Line(int startX, int startY, int length, Color fillColor, Color strokeColor, int strokeWidth) {
+        super(startX, startY, fillColor, strokeColor, strokeWidth);
+        this.length = length;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
     }
 }

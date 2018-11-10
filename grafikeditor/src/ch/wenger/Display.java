@@ -1,35 +1,22 @@
 package ch.wenger;
 
 import ch.wenger.components.*;
+import ch.wenger.components.Rectangle;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- * Die Klasse Display stellt ein Fenster auf dem Bildschirm zur Verfügung, in welchem
- * Shape-Objekte dargestellt werden können.
- * Siehe auch Java-Grundkurs Abschnitt 10.2 und 10.3.
- *
- * @author Andres Scheidegger
- */
 @SuppressWarnings("serial")
 public class Display extends JFrame {
-    /**
-     * Die Liste der dargestellten Shape-Objekte
-     */
     private List<Shape> shapes = new ArrayList<Shape>();
 
-    /**
-     * Konstruktor. Initialisiert das Fenster in der Mitte des Bildschirms und erzeugt ein
-     * JFrame-Objekt, auf welchem die Figuren gezeichnet werden.
-     */
     public Display() {
         Dimension windowSize = new Dimension(800, 600);
         setSize(windowSize);
@@ -44,55 +31,71 @@ public class Display extends JFrame {
     }
 
     private void createAndAddDrawingPanel() {
-        // Das JPanel-Objekt ist ein Objekt einer anonymen Unterklasse von JPanel
-        // Siehe Java-Grundkurs Abschnitt 3.9
         add(new JPanel() {
-            // Die paintComponent()-Methode wird automatisch aufgerufen, wenn irgendwer die repaint()-
-            // Methode beim Dsiplay aufruft.
             @Override
             protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                drawShapes(g);
+                paintComponent((Graphics2D) g);
+            }
+
+            protected void paintComponent(Graphics2D g2) {
+                drawShapes(g2);
             }
         });
     }
 
-    private void drawShapes(Graphics g) {
+    private void drawShapes(Graphics2D g2) {
         for (Shape shape : shapes) {
             int startX = shape.getStartX();
             int startY = shape.getStartY();
-            int endX = shape.getEndX();
-            int endY = shape.getEndY();
+            int width = shape.getWidth();
+            int height = shape.getHeight();
 
             if (shape instanceof Rectangle) {
-                int width = endX- startX;
-                int height = endY - startY;
-                g.drawRect(startX, startY, width, height);
+                Rectangle2D rectangle = new Rectangle2D.Double(startX, startY, width, height);
+                g2.setColor(shape.getFillColor());
+                g2.fill(rectangle);
+                g2.setColor(shape.getStrokeColor());
+                Stroke stroke = new BasicStroke(shape.getStrokeWidth());
+                g2.setStroke(stroke);
+                g2.draw(rectangle);
             }
             if (shape instanceof Line) {
-                g.drawLine(startX, startY, endX, endY);
+                int length = ((Line) shape).getLength();
+                Line2D line = new Line2D.Double(startX, startY, startX + length, startY + length);
+                g2.setColor(shape.getFillColor());
+                g2.fill(line);
+                g2.setColor(shape.getStrokeColor());
+                Stroke stroke = new BasicStroke(shape.getStrokeWidth());
+                g2.setStroke(stroke);
+                g2.draw(line);
             }
-            if (shape instanceof Circle || shape instanceof Ellipse) {
-                int width = endX- startX;
-                int height = endY - startY;
-                g.drawOval(startX, startY, width, height);
+            if (shape instanceof Circle) {
+                int radius = ((Circle) shape).getRadius();
+                Ellipse2D ellipse = new Ellipse2D.Double(startX, startY, radius, radius);
+                g2.setColor(shape.getFillColor());
+                g2.fill(ellipse);
+                g2.setColor(shape.getStrokeColor());
+                Stroke stroke = new BasicStroke(shape.getStrokeWidth());
+                g2.setStroke(stroke);
+                g2.draw(ellipse);
+            }
+            if (shape instanceof Ellipse) {
+                Ellipse2D ellipse = new Ellipse2D.Double(startX, startY, width, height);
+                g2.setColor(shape.getFillColor());
+                g2.fill(ellipse);
+                g2.setColor(shape.getStrokeColor());
+                Stroke stroke = new BasicStroke(shape.getStrokeWidth());
+                g2.setStroke(stroke);
+                g2.draw(ellipse);
             }
         }
     }
 
-    /**
-     * Fügt eine weitere Shape hinzu und löst die Auffrischung des Fensterinhaltes aus.
-     *
-     * @param shape Referenz auf das weitere Shape-Objekt.
-     */
     public void addShape(Shape shape) {
         shapes.add(shape);
         repaint();
     }
 
-    /**
-     * Löscht alle Figuren und löst die Auffrischung des Fensterinhaltes aus.
-     */
     public void clearDisplay() {
         shapes.clear();
         repaint();
