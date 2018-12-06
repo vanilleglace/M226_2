@@ -30,8 +30,18 @@ class Fachangestellter extends Person {
     }
 }
 
+class Firma {
+    private Person[] mitarbeiter;
+
+    public Firma(Person[] p) {
+        mitarbeiter = p;
+    }
+}
+
 public class Personen {
     public static void main(String[] args) {
-
+        Firma f = new Firma(
+                new Person[]{
+                        new Chef("Sattler", "Beatrice", 25, "Verkauf")});
     }
 }

@@ -1,8 +1,9 @@
 package ch.wenger;
 
 import java.awt.*;
+import java.io.*;
 
-public class Shape {
+public abstract class Shape implements Serializable {
     private int startX;
     private int startY;
     private int width;
@@ -11,12 +12,12 @@ public class Shape {
     private Color strokeColor;
     private int strokeWidth;
 
+    public Shape() {
+
+    }
+
     public Shape(int startX, int startY, Color fillColor, Color strokeColor, int strokeWidth) {
-        this.startX = startX;
-        this.startY = startY;
-        this.fillColor = fillColor;
-        this.strokeColor = strokeColor;
-        this.strokeWidth = strokeWidth;
+        this(startX, startY, 0, 0, fillColor, strokeColor, strokeWidth);
     }
 
     public Shape(int startX, int startY, int width, int height, Color fillColor, Color strokeColor, int strokeWidth) {
@@ -83,5 +84,12 @@ public class Shape {
 
     public void setStrokeWidth(int strokeWidth) {
         this.strokeWidth = strokeWidth;
+    }
+
+    public abstract void draw(Graphics2D g2);
+
+    public void move(int x, int y) {
+        this.startX += x;
+        this.startY += y;
     }
 }

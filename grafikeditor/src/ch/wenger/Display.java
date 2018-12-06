@@ -1,12 +1,10 @@
 package ch.wenger;
 
-import ch.wenger.components.*;
-import ch.wenger.components.Rectangle;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Display extends JFrame {
     private List<Shape> shapes = new ArrayList<Shape>();
+    private Drawing drawing;
 
     public Display() {
         Dimension windowSize = new Dimension(800, 600);
@@ -38,66 +37,25 @@ public class Display extends JFrame {
             }
 
             protected void paintComponent(Graphics2D g2) {
-                drawShapes(g2);
+                if (drawing != null) {
+                    drawing.drawShapes(g2);
+                }
             }
         });
     }
 
-    private void drawShapes(Graphics2D g2) {
-        for (Shape shape : shapes) {
-            int startX = shape.getStartX();
-            int startY = shape.getStartY();
-            int width = shape.getWidth();
-            int height = shape.getHeight();
-
-            if (shape instanceof Rectangle) {
-                Rectangle2D rectangle = new Rectangle2D.Double(startX, startY, width, height);
-                g2.setColor(shape.getFillColor());
-                g2.fill(rectangle);
-                g2.setColor(shape.getStrokeColor());
-                Stroke stroke = new BasicStroke(shape.getStrokeWidth());
-                g2.setStroke(stroke);
-                g2.draw(rectangle);
-            }
-            if (shape instanceof Line) {
-                int length = ((Line) shape).getLength();
-                Line2D line = new Line2D.Double(startX, startY, startX + length, startY + length);
-                g2.setColor(shape.getFillColor());
-                g2.fill(line);
-                g2.setColor(shape.getStrokeColor());
-                Stroke stroke = new BasicStroke(shape.getStrokeWidth());
-                g2.setStroke(stroke);
-                g2.draw(line);
-            }
-            if (shape instanceof Circle) {
-                int radius = ((Circle) shape).getRadius();
-                Ellipse2D ellipse = new Ellipse2D.Double(startX, startY, radius, radius);
-                g2.setColor(shape.getFillColor());
-                g2.fill(ellipse);
-                g2.setColor(shape.getStrokeColor());
-                Stroke stroke = new BasicStroke(shape.getStrokeWidth());
-                g2.setStroke(stroke);
-                g2.draw(ellipse);
-            }
-            if (shape instanceof Ellipse) {
-                Ellipse2D ellipse = new Ellipse2D.Double(startX, startY, width, height);
-                g2.setColor(shape.getFillColor());
-                g2.fill(ellipse);
-                g2.setColor(shape.getStrokeColor());
-                Stroke stroke = new BasicStroke(shape.getStrokeWidth());
-                g2.setStroke(stroke);
-                g2.draw(ellipse);
-            }
+    public void saveDisplay() {
+        Writer writer = null;
+        try {
+            writer = new FileWriter("output.json");
+            Gson gson= new GsonBuilder().create();
+            gson.toJson(shapes, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void addShape(Shape shape) {
-        shapes.add(shape);
-        repaint();
-    }
 
-    public void clearDisplay() {
-        shapes.clear();
-        repaint();
-    }
+
 }
