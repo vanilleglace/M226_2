@@ -1,10 +1,15 @@
 package ch.wenger;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Drawing {
-    List<Shape> shapes;
+    List<Shape> shapes = new ArrayList();
+
+    public Drawing() {
+
+    }
 
     public Drawing(List<Shape> shapes) {
         this.shapes = shapes;

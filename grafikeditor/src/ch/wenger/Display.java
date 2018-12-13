@@ -55,7 +55,4 @@ public class Display extends JFrame {
             e.printStackTrace();
         }
     }
-
-
-
 }

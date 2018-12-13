@@ -10,7 +10,7 @@ public class Rectangle extends Shape {
 
     }
 
-    public Rectangle(int startX, int startY, int width, int height, Color fillColor, Color strokeColor, int strokeWidth) {
+    public Rectangle(double startX, double startY, double width, double height, Color fillColor, Color strokeColor, int strokeWidth) {
         super(startX, startY, width, height, fillColor, strokeColor, strokeWidth);
     }
 

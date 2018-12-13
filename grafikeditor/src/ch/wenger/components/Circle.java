@@ -6,18 +6,18 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public class Circle extends Shape {
-    int radius;
+    double radius;
 
     public Circle(){
 
     }
 
-    public Circle(int startX, int startY, int radius, Color fillColor, Color strokeColor, int strokeWidth) {
+    public Circle(double startX, double startY, double radius, Color fillColor, Color strokeColor, int strokeWidth) {
         super(startX, startY, fillColor, strokeColor, strokeWidth);
         this.radius = radius;
     }
 
-    public int getRadius() {
+    public double getRadius() {
         return radius;
     }
 

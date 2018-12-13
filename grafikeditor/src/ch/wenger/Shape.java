@@ -4,10 +4,10 @@ import java.awt.*;
 import java.io.*;
 
 public abstract class Shape implements Serializable {
-    private int startX;
-    private int startY;
-    private int width;
-    private int height;
+    private double startX;
+    private double startY;
+    private double width;
+    private double height;
     private Color fillColor;
     private Color strokeColor;
     private int strokeWidth;
@@ -16,11 +16,11 @@ public abstract class Shape implements Serializable {
 
     }
 
-    public Shape(int startX, int startY, Color fillColor, Color strokeColor, int strokeWidth) {
+    public Shape(double startX, double startY, Color fillColor, Color strokeColor, int strokeWidth) {
         this(startX, startY, 0, 0, fillColor, strokeColor, strokeWidth);
     }
 
-    public Shape(int startX, int startY, int width, int height, Color fillColor, Color strokeColor, int strokeWidth) {
+    public Shape(double startX, double startY, double width, double height, Color fillColor, Color strokeColor, int strokeWidth) {
         this.startX = startX;
         this.startY = startY;
         this.width = width;
@@ -30,7 +30,7 @@ public abstract class Shape implements Serializable {
         this.strokeWidth = strokeWidth;
     }
 
-    public int getStartX() {
+    public double getStartX() {
         return startX;
     }
 
@@ -38,7 +38,7 @@ public abstract class Shape implements Serializable {
         this.startX = startX;
     }
 
-    public int getStartY() {
+    public double getStartY() {
         return startY;
     }
 
@@ -46,7 +46,7 @@ public abstract class Shape implements Serializable {
         this.startY = startY;
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
@@ -54,7 +54,7 @@ public abstract class Shape implements Serializable {
         this.width = width;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
